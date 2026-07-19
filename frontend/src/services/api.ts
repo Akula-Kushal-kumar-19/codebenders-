@@ -33,7 +33,7 @@ class APIClient {
       }
     );
   }
-  }
+
 
   // Content endpoints
   async createContent(data: Omit<IContent, 'id' | 'createdAt' | 'updatedAt'>) {
