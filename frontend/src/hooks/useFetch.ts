@@ -38,22 +38,25 @@ export const useFetch = <T,>(
       }
     }
     
+    
     if (lastError) {
       setError(lastError);
       options.onError?.(lastError);
+      console.error('Fetch error:', lastError);
     }
     setLoading(false);
-    throw lastError;
+    if (lastError) throw lastError;
+
   }, [fetchFn, options]);
 
   useEffect(() => {
     if (!options.skipOnMount) {
       fetch().catch(err => {
-        // Error is already handled in fetch()
         console.error('Fetch failed:', err);
       });
     }
-  }, []);
+  }, [fetch, options.skipOnMount]);
+
 
   return { data, loading, error, refetch: fetch };
 };

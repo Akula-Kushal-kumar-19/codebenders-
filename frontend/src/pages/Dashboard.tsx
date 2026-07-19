@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MetricCard, BarChartComponent, PageHeader, LoadingSpinner, Alert } from '../components';
 import { useFetch } from '../hooks';
 import api from '../services/api';
@@ -9,6 +9,8 @@ export const Dashboard: React.FC = () => {
     end: new Date(),
   });
 
+  const [loadingTimeout, setLoadingTimeout] = useState(false);
+
   const { data: summary, loading, error: summaryError, refetch } = useFetch(
     () => api.getAnalyticsSummary(dateRange.start, dateRange.end),
     { skipOnMount: false }
@@ -17,7 +19,30 @@ export const Dashboard: React.FC = () => {
   const { data: topTopics, error: topicsError } = useFetch(() => api.getTopicPerformance(5));
   const { data: bestFormats, error: formatsError } = useFetch(() => api.getFormatPerformance(5));
 
-  if (loading) return <LoadingSpinner fullScreen />;
+  // Timeout for stuck loading state
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => {
+        console.warn('Dashboard loading timeout - API may be unresponsive');
+        setLoadingTimeout(true);
+
+      {summaryError && (
+        <Alert
+          type="error"
+          title="Error loading analytics"
+          message={summaryError.message}
+        />
+      )}
+
+      {loadingTimeout && (
+        <Alert
+          type="error"
+          title="Loading Timeout"
+          message="The dashboard is taking too long to load. Please check if the backend server is running on port 3001, or try refreshing the page."
+        />
+      )}
+
+
 
   return (
     <div>
@@ -33,6 +58,15 @@ export const Dashboard: React.FC = () => {
           message={summaryError.message}
         />
       )}
+
+      {loadingTimeout && (
+        <Alert
+          type="error"
+          title="Loading Timeout"
+          message="The dashboard is taking too long to load. Please check if the backend server is running on port 3001, or try refreshing the page."
+        />
+      )}
+
 
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
