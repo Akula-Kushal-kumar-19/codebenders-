@@ -25,13 +25,14 @@ class APIClient {
       (response) => response,
       (error: AxiosError) => {
         const apiError: APIError = new Error(
-          error.response?.data?.error || error.message || 'An error occurred'
+          (error.response?.data as any)?.error || error.message || 'An error occurred'
         );
         apiError.status = error.response?.status;
         apiError.response = error.response?.data;
         return Promise.reject(apiError);
       }
     );
+  }
   }
 
   // Content endpoints
