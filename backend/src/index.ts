@@ -81,7 +81,7 @@ class App {
         logger.info('WebSocket client disconnected');
       });
 
-      ws.on('error', (error) => {
+      ws.on('error', (error: Event) => {
         logger.error('WebSocket error:', { error });
       });
     });
@@ -121,7 +121,7 @@ class App {
 
   public broadcastToClients(message: any) {
     const payload = JSON.stringify(message);
-    this.wss.clients.forEach((client) => {
+    this.wss.clients.forEach((client: WebSocket) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(payload);
       }

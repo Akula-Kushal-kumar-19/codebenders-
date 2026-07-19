@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Dashboard, Analytics, Insights, Reports } from './pages';
+
 import { Navigation } from './components';
 import './App.css';
 

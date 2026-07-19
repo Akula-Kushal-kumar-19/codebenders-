@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { MetricCard, BarChartComponent, LineChartComponent, PageHeader, LoadingSpinner } from '../components';
+import React, { useState } from 'react';
+import { MetricCard, BarChartComponent, PageHeader, LoadingSpinner } from '../components';
 import { useFetch } from '../hooks';
 import api from '../services/api';
 

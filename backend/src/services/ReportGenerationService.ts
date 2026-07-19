@@ -201,23 +201,25 @@ export class ReportGenerationService {
   /**
    * Generate next actions based on insights
    */
-  private generateNextActions(recommendations: any[], contentGaps: any[]) {
-    const actions = [];
+  private generateNextActions(recommendations: any[], contentGaps: any[]): Array<{action: string; priority: 'high' | 'medium' | 'low'; dueDate: Date}> {
+    const actions: Array<{action: string; priority: 'high' | 'medium' | 'low'; dueDate: Date}> = [];
 
     // Add action for top recommendation
     if (recommendations.length > 0) {
+      const priority = recommendations[0].priority as 'high' | 'medium' | 'low';
       actions.push({
         action: recommendations[0].description,
-        priority: 'high',
+        priority,
         dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week
       });
     }
 
     // Add actions for content gaps
     contentGaps.slice(0, 2).forEach((gap: any) => {
+      const priority = gap.priority as 'high' | 'medium' | 'low';
       actions.push({
         action: `Create new content on "${gap.topic}" - suggested: ${gap.suggestedContent?.title}`,
-        priority: gap.priority,
+        priority,
         dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 2 weeks
       });
     });

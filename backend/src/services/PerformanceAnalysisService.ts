@@ -155,9 +155,9 @@ export class PerformanceAnalysisService {
   /**
    * Analyze performance by segment
    */
-  private analyzeBySegment(analytics: IAnalytics[]) {
+  private analyzeBySegment(analytics: IAnalytics[]): any[] {
     // Group by various segment types
-    const segments = [];
+    const segments: any[] = [];
 
     // For now, return a basic structure
     // In a real implementation, this would analyze by geography, traffic source, device, etc.

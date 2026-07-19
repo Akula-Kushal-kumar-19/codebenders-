@@ -231,12 +231,9 @@ export class AIInsightsService {
             reason: `High engagement (${Math.round(avgViews)} avg views) but limited content coverage`,
             priority: avgViews > 5000 ? 'high' : 'medium',
             identifiedAt: new Date(),
-            suggestedContent: {
-              title: `Ultimate Guide to ${topic}`,
-              format: 'article' as any,
-              keywords: [topic, `${topic} guide`, `${topic} tips`],
-            },
+            suggestedContent: `Ultimate Guide to ${topic}`,
           });
+
         }
       });
 

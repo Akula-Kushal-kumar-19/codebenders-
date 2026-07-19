@@ -3,7 +3,8 @@ import { PageHeader, LoadingSpinner, Alert, Table } from '../components';
 import { useFetch } from '../hooks';
 import api from '../services/api';
 import { IReport } from '@contentpulse/shared';
-import { FileText } from 'lucide-react';
+
+
 
 export const Reports: React.FC = () => {
   const [selectedReport, setSelectedReport] = useState<IReport | null>(null);
@@ -36,14 +37,14 @@ export const Reports: React.FC = () => {
       render: (value: Date) => new Date(value).toLocaleDateString(),
     },
     {
-      key: 'period.startDate',
-      header: 'Period Start',
-      render: (value: any, row: any) => new Date(row.period.startDate).toLocaleDateString(),
-    },
-    {
-      key: 'period.endDate',
-      header: 'Period End',
-      render: (value: any, row: any) => new Date(row.period.endDate).toLocaleDateString(),
+      key: 'period',
+      header: 'Period',
+      render: (value: any) => {
+        if (value?.startDate && value?.endDate) {
+          return `${new Date(value.startDate).toLocaleDateString()} - ${new Date(value.endDate).toLocaleDateString()}`;
+        }
+        return '';
+      },
     },
     {
       key: 'recommendations',
@@ -51,6 +52,7 @@ export const Reports: React.FC = () => {
       render: (value: any[]) => value?.length || 0,
     },
   ];
+
 
   return (
     <div>
@@ -159,3 +161,4 @@ export const Reports: React.FC = () => {
     </div>
   );
 };
+

@@ -1,7 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
-import { IContent, IAnalytics, IReport, IContentPrediction, ContentGap } from '@contentpulse/shared';
+import { IContent, IAnalytics } from '@contentpulse/shared';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = ((import.meta as any).env.VITE_API_URL as string | undefined) || 'http://localhost:3001/api';
+
+
+
 
 class APIClient {
   private client: AxiosInstance;

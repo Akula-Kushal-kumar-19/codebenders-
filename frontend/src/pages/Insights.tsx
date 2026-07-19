@@ -7,7 +7,6 @@ import { Recommendation, ContentGap } from '@contentpulse/shared';
 export const Insights: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'topics' | 'trends' | 'gaps'>('topics');
 
-  const { data: insightsData, loading: insightsLoading } = useFetch(() => api.getInsights());
   const { data: topicsData, loading: topicsLoading } = useFetch(() => api.getHighConvertingTopics(5));
   const { data: trendsData, loading: trendsLoading } = useFetch(() => api.getEmergingTrends());
   const { data: gapsData, loading: gapsLoading } = useFetch(() => api.getContentGaps());

@@ -12,7 +12,9 @@ export const useWebSocket = (url?: string) => {
   const [ws, setWs] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const wsUrl = url || (import.meta.env.VITE_WS_URL || 'ws://localhost:3001');
+    const wsUrl = url || ((import.meta as any).env.VITE_WS_URL as string | undefined) || 'ws://localhost:3001';
+
+
     
     try {
       const socket = new WebSocket(wsUrl);

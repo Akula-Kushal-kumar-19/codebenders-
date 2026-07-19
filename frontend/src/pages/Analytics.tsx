@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PageHeader, Table, LoadingSpinner, Alert } from '../components';
+import { PageHeader, Table, LoadingSpinner } from '../components';
 import { useFetch } from '../hooks';
 import api from '../services/api';
 
