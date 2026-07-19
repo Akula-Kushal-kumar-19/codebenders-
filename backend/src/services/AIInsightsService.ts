@@ -1,6 +1,17 @@
 import config from '../config';
 import logger from '../utils/logger';
 import { ContentModel, AnalyticsModel, ContentGapModel } from '../models';
+import { mockInsights } from '../utils/mockData';
+import { 
+  IContentPrediction, 
+  PredictionFactor, 
+  Recommendation, 
+  Insight,
+  ContentGap 
+} from '@contentpulse/shared';
+import { generateId, topN } from '../utils/helpers';
+import logger from '../utils/logger';
+import { ContentModel, AnalyticsModel, ContentGapModel } from '../models';
 import { 
   IContentPrediction, 
   PredictionFactor, 

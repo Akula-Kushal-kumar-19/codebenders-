@@ -4,6 +4,8 @@ import AnalyticsAggregationService from './AnalyticsAggregationService';
 import PerformanceAnalysisService from './PerformanceAnalysisService';
 import AIInsightsService from './AIInsightsService';
 import { generateId } from '../utils/helpers';
+import { mockReports } from '../utils/mockData';
+import { IReport } from '@contentpulse/shared';
 import { IReport } from '@contentpulse/shared';
 
 export class ReportGenerationService {
