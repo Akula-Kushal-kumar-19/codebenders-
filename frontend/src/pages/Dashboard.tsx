@@ -25,24 +25,14 @@ export const Dashboard: React.FC = () => {
       const timer = setTimeout(() => {
         console.warn('Dashboard loading timeout - API may be unresponsive');
         setLoadingTimeout(true);
+      }, 8000); // 8 seconds
+      return () => clearTimeout(timer);
+    } else {
+      setLoadingTimeout(false);
+    }
+  }, [loading]);
 
-      {summaryError && (
-        <Alert
-          type="error"
-          title="Error loading analytics"
-          message={summaryError.message}
-        />
-      )}
-
-      {loadingTimeout && (
-        <Alert
-          type="error"
-          title="Loading Timeout"
-          message="The dashboard is taking too long to load. Please check if the backend server is running on port 3001, or try refreshing the page."
-        />
-      )}
-
-
+  if (loading && !loadingTimeout) return <LoadingSpinner fullScreen />;
 
   return (
     <div>
@@ -66,7 +56,6 @@ export const Dashboard: React.FC = () => {
           message="The dashboard is taking too long to load. Please check if the backend server is running on port 3001, or try refreshing the page."
         />
       )}
-
 
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
