@@ -1,8 +1,10 @@
-// Mock data service - used when MongoDB is not available
+// Mock data service - used throughout the application
+// All data is prefixed with "Sample" or "Demo" to identify as mock data
+
 export const mockContentData = [
   {
     id: 'content-1',
-    title: 'Getting Started with React Hooks',
+    title: 'Sample: Getting Started with React Hooks',
     url: 'https://example.com/react-hooks',
     format: 'article',
     topic: 'React',
@@ -10,11 +12,12 @@ export const mockContentData = [
     length: 3500,
     publishedAt: new Date('2024-01-15'),
     channels: ['blog', 'linkedin'],
-    author: 'John Doe',
+    author: 'Demo User: John Doe',
+    status: 'published',
   },
   {
     id: 'content-2',
-    title: 'Node.js Best Practices 2024',
+    title: 'Sample: Node.js Best Practices 2024',
     url: 'https://example.com/nodejs-practices',
     format: 'article',
     topic: 'Node.js',
@@ -22,11 +25,12 @@ export const mockContentData = [
     length: 4200,
     publishedAt: new Date('2024-01-18'),
     channels: ['blog', 'twitter'],
-    author: 'Jane Smith',
+    author: 'Demo User: Jane Smith',
+    status: 'published',
   },
   {
     id: 'content-3',
-    title: 'TypeScript Tutorial for Beginners',
+    title: 'Sample: TypeScript Tutorial for Beginners',
     url: 'https://example.com/typescript-tutorial',
     format: 'video',
     topic: 'TypeScript',
@@ -34,11 +38,12 @@ export const mockContentData = [
     length: 8000,
     publishedAt: new Date('2024-01-20'),
     channels: ['youtube', 'linkedin'],
-    author: 'Mike Johnson',
+    author: 'Demo User: Mike Johnson',
+    status: 'published',
   },
   {
     id: 'content-4',
-    title: 'Web Performance Optimization',
+    title: 'Sample: Web Performance Optimization Guide',
     url: 'https://example.com/web-performance',
     format: 'article',
     topic: 'Web Performance',
@@ -46,11 +51,12 @@ export const mockContentData = [
     length: 5100,
     publishedAt: new Date('2024-01-22'),
     channels: ['blog', 'twitter', 'linkedin'],
-    author: 'Sarah Davis',
+    author: 'Demo User: Sarah Davis',
+    status: 'published',
   },
   {
     id: 'content-5',
-    title: 'GraphQL vs REST APIs',
+    title: 'Sample: GraphQL vs REST APIs Comparison',
     url: 'https://example.com/graphql-vs-rest',
     format: 'article',
     topic: 'GraphQL',
@@ -58,11 +64,12 @@ export const mockContentData = [
     length: 3800,
     publishedAt: new Date('2024-01-25'),
     channels: ['blog', 'linkedin'],
-    author: 'Tom Wilson',
+    author: 'Demo User: Tom Wilson',
+    status: 'published',
   },
   {
     id: 'content-6',
-    title: 'JavaScript Async/Await Explained',
+    title: 'Sample: JavaScript Async/Await Explained',
     url: 'https://example.com/async-await',
     format: 'video',
     topic: 'JavaScript',
@@ -70,11 +77,12 @@ export const mockContentData = [
     length: 6500,
     publishedAt: new Date('2024-01-28'),
     channels: ['youtube', 'linkedin'],
-    author: 'Emily Brown',
+    author: 'Demo User: Emily Brown',
+    status: 'published',
   },
   {
     id: 'content-7',
-    title: 'CSS Grid Layout Deep Dive',
+    title: 'Sample: CSS Grid Layout Deep Dive',
     url: 'https://example.com/css-grid',
     format: 'article',
     topic: 'CSS',
@@ -82,11 +90,12 @@ export const mockContentData = [
     length: 4000,
     publishedAt: new Date('2024-02-01'),
     channels: ['blog', 'twitter'],
-    author: 'Chris Martin',
+    author: 'Demo User: Chris Martin',
+    status: 'published',
   },
   {
     id: 'content-8',
-    title: 'Docker Containerization Guide',
+    title: 'Sample: Docker Containerization Guide',
     url: 'https://example.com/docker-guide',
     format: 'article',
     topic: 'DevOps',
@@ -94,7 +103,34 @@ export const mockContentData = [
     length: 5500,
     publishedAt: new Date('2024-02-03'),
     channels: ['blog', 'linkedin'],
-    author: 'David Lee',
+    author: 'Demo User: David Lee',
+    status: 'published',
+  },
+  {
+    id: 'content-9',
+    title: 'Sample: Machine Learning Basics',
+    url: 'https://example.com/ml-basics',
+    format: 'video',
+    topic: 'AI/ML',
+    subtopics: ['Machine Learning', 'Python'],
+    length: 7200,
+    publishedAt: new Date('2024-02-05'),
+    channels: ['youtube', 'linkedin'],
+    author: 'Demo User: Lisa Anderson',
+    status: 'published',
+  },
+  {
+    id: 'content-10',
+    title: 'Sample: Cloud Architecture Patterns',
+    url: 'https://example.com/cloud-patterns',
+    format: 'article',
+    topic: 'Cloud',
+    subtopics: ['AWS', 'Architecture'],
+    length: 4800,
+    publishedAt: new Date('2024-02-08'),
+    channels: ['blog', 'twitter', 'linkedin'],
+    author: 'Demo User: Robert Chen',
+    status: 'published',
   },
 ];
 
@@ -154,12 +190,137 @@ export const mockAnalyticsData = [
   { id: 'a-38', contentId: 'content-8', channel: 'blog', date: new Date('2024-02-03'), views: 2300, engagement: 310, timeOnPage: 260, conversions: 92, clickThroughRate: 0.15 },
   { id: 'a-39', contentId: 'content-8', channel: 'linkedin', date: new Date('2024-02-04'), views: 2000, engagement: 260, timeOnPage: 230, conversions: 80, clickThroughRate: 0.135 },
   { id: 'a-40', contentId: 'content-8', channel: 'blog', date: new Date('2024-02-05'), views: 2200, engagement: 290, timeOnPage: 250, conversions: 88, clickThroughRate: 0.145 },
+
+  // ML content (content-9)
+  { id: 'a-41', contentId: 'content-9', channel: 'youtube', date: new Date('2024-02-01'), views: 3200, engagement: 480, timeOnPage: 580, conversions: 160, clickThroughRate: 0.25 },
+  { id: 'a-42', contentId: 'content-9', channel: 'linkedin', date: new Date('2024-02-02'), views: 2200, engagement: 320, timeOnPage: 390, conversions: 110, clickThroughRate: 0.18 },
+  { id: 'a-43', contentId: 'content-9', channel: 'youtube', date: new Date('2024-02-03'), views: 3400, engagement: 520, timeOnPage: 620, conversions: 170, clickThroughRate: 0.27 },
+  { id: 'a-44', contentId: 'content-9', channel: 'linkedin', date: new Date('2024-02-04'), views: 2100, engagement: 300, timeOnPage: 370, conversions: 105, clickThroughRate: 0.17 },
+  { id: 'a-45', contentId: 'content-9', channel: 'youtube', date: new Date('2024-02-05'), views: 3100, engagement: 460, timeOnPage: 560, conversions: 155, clickThroughRate: 0.24 },
+
+  // Cloud content (content-10)
+  { id: 'a-46', contentId: 'content-10', channel: 'blog', date: new Date('2024-02-01'), views: 2450, engagement: 300, timeOnPage: 270, conversions: 98, clickThroughRate: 0.16 },
+  { id: 'a-47', contentId: 'content-10', channel: 'twitter', date: new Date('2024-02-02'), views: 1700, engagement: 200, timeOnPage: 190, conversions: 68, clickThroughRate: 0.12 },
+  { id: 'a-48', contentId: 'content-10', channel: 'linkedin', date: new Date('2024-02-03'), views: 2100, engagement: 260, timeOnPage: 235, conversions: 84, clickThroughRate: 0.14 },
+  { id: 'a-49', contentId: 'content-10', channel: 'blog', date: new Date('2024-02-04'), views: 2350, engagement: 290, timeOnPage: 260, conversions: 94, clickThroughRate: 0.155 },
+  { id: 'a-50', contentId: 'content-10', channel: 'twitter', date: new Date('2024-02-05'), views: 1800, engagement: 220, timeOnPage: 205, conversions: 72, clickThroughRate: 0.13 },
+];
+
+export const mockInsights = {
+  highConvertingTopics: [
+    { topic: 'AI/ML', conversion: 25.2, trend: 'up', status: 'Demo Data' },
+    { topic: 'TypeScript', conversion: 23.1, trend: 'up', status: 'Demo Data' },
+    { topic: 'JavaScript', conversion: 20.5, trend: 'stable', status: 'Demo Data' },
+    { topic: 'Node.js', conversion: 16.3, trend: 'up', status: 'Demo Data' },
+    { topic: 'React', conversion: 15.7, trend: 'stable', status: 'Demo Data' },
+  ],
+  emergingTrends: [
+    { trend: 'Machine Learning & AI', momentum: 92, source: 'Sample Data' },
+    { trend: 'Cloud Architecture', momentum: 87, source: 'Sample Data' },
+    { trend: 'TypeScript Adoption', momentum: 78, source: 'Sample Data' },
+    { trend: 'DevOps Practices', momentum: 72, source: 'Sample Data' },
+    { trend: 'Performance Optimization', momentum: 65, source: 'Sample Data' },
+  ],
+  contentGaps: [
+    { gap: 'Advanced Python Tutorial', priority: 'high', audience: 'Demo: Developers', estimated_demand: '45%' },
+    { gap: 'Kubernetes Guide', priority: 'high', audience: 'Demo: DevOps Engineers', estimated_demand: '42%' },
+    { gap: 'Web Assembly Deep Dive', priority: 'medium', audience: 'Demo: Frontend Developers', estimated_demand: '38%' },
+    { gap: 'GraphQL Subscriptions', priority: 'medium', audience: 'Demo: Backend Developers', estimated_demand: '32%' },
+    { gap: 'Microservices Architecture', priority: 'medium', audience: 'Demo: Architects', estimated_demand: '28%' },
+  ],
+  recommendations: [
+    { recommendation: 'Sample: Create AI/ML focused content series', impact: 'High', effort: 'Medium' },
+    { recommendation: 'Sample: Expand video content on YouTube', impact: 'High', effort: 'High' },
+    { recommendation: 'Sample: Focus on high-converting topics', impact: 'High', effort: 'Low' },
+    { recommendation: 'Sample: Increase LinkedIn article publishing', impact: 'Medium', effort: 'Low' },
+    { recommendation: 'Sample: Create comprehensive tutorials', impact: 'High', effort: 'Medium' },
+  ],
+};
+
+export const mockReports = [
+  {
+    id: 'report-1',
+    title: 'Sample: February 2024 Performance Report',
+    period: { startDate: new Date('2024-02-01'), endDate: new Date('2024-02-29') },
+    createdAt: new Date('2024-02-29'),
+    metrics: {
+      totalContent: 10,
+      totalViews: 105650,
+      totalEngagement: 13420,
+      avgConversionRate: 16.2,
+      topPerformingTopic: 'AI/ML',
+      topPerformingFormat: 'Video',
+      bestPerformingDay: 'Friday',
+    },
+    status: 'Completed',
+  },
+  {
+    id: 'report-2',
+    title: 'Sample: January 2024 Performance Report',
+    period: { startDate: new Date('2024-01-01'), endDate: new Date('2024-01-31') },
+    createdAt: new Date('2024-01-31'),
+    metrics: {
+      totalContent: 8,
+      totalViews: 98200,
+      totalEngagement: 12450,
+      avgConversionRate: 15.8,
+      topPerformingTopic: 'React',
+      topPerformingFormat: 'Article',
+      bestPerformingDay: 'Wednesday',
+    },
+    status: 'Completed',
+  },
+  {
+    id: 'report-3',
+    title: 'Sample: Q1 2024 Quarterly Summary',
+    period: { startDate: new Date('2024-01-01'), endDate: new Date('2024-03-31') },
+    createdAt: new Date('2024-03-31'),
+    metrics: {
+      totalContent: 18,
+      totalViews: 310500,
+      totalEngagement: 41200,
+      avgConversionRate: 16.0,
+      topPerformingTopic: 'TypeScript',
+      topPerformingFormat: 'Video',
+      bestPerformingDay: 'Thursday',
+    },
+    status: 'Completed',
+  },
+  {
+    id: 'report-4',
+    title: 'Sample: Content Performance by Channel',
+    period: { startDate: new Date('2024-02-01'), endDate: new Date('2024-02-29') },
+    createdAt: new Date('2024-02-29'),
+    metrics: {
+      totalContent: 10,
+      channels: { blog: 42500, youtube: 28000, linkedin: 22650, twitter: 12500 },
+      avgConversionRate: 16.2,
+      topChannel: 'Blog',
+      topChannelConversion: 17.2,
+    },
+    status: 'Completed',
+  },
+  {
+    id: 'report-5',
+    title: 'Sample: Topic Analysis Report',
+    period: { startDate: new Date('2024-02-01'), endDate: new Date('2024-02-29') },
+    createdAt: new Date('2024-02-29'),
+    metrics: {
+      totalTopics: 7,
+      topTopics: [
+        { topic: 'AI/ML', views: 21500, engagement: 3200 },
+        { topic: 'TypeScript', views: 18200, engagement: 2800 },
+        { topic: 'JavaScript', views: 16400, engagement: 2560 },
+      ],
+      avgConversionRate: 16.2,
+    },
+    status: 'Completed',
+  },
 ];
 
 export const getTopicPerformance = () => {
   const topicMetrics: {[key: string]: { views: number; engagement: number; conversions: number; count: number }} = {};
 
-  // Group analytics by topic
   mockAnalyticsData.forEach(analytic => {
     const content = mockContentData.find(c => c.id === analytic.contentId);
     if (content) {
@@ -223,4 +384,27 @@ export const getAnalyticsSummary = () => {
     avgTimeOnPage,
     avgConversionRate: Math.round((mockAnalyticsData.reduce((sum, a) => sum + a.conversions, 0) / totalViews) * 10000) / 100,
   };
+};
+
+export const getChannelPerformance = () => {
+  const channelMetrics: {[key: string]: { views: number; engagement: number; conversions: number }} = {};
+
+  mockAnalyticsData.forEach(analytic => {
+    if (!channelMetrics[analytic.channel]) {
+      channelMetrics[analytic.channel] = { views: 0, engagement: 0, conversions: 0 };
+    }
+    channelMetrics[analytic.channel].views += analytic.views;
+    channelMetrics[analytic.channel].engagement += analytic.engagement;
+    channelMetrics[analytic.channel].conversions += analytic.conversions;
+  });
+
+  return Object.entries(channelMetrics)
+    .map(([channel, metrics]) => ({
+      channel,
+      views: metrics.views,
+      engagement: metrics.engagement,
+      conversions: metrics.conversions,
+      conversionRate: Math.round((metrics.conversions / metrics.views) * 10000) / 100,
+    }))
+    .sort((a, b) => b.views - a.views);
 };
