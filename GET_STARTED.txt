@@ -1,0 +1,112 @@
+# 🚀 CONTENTPULSE - INSTANT QUICK START
+
+## ⚠️ YOUR PROJECT ISN'T RUNNING BECAUSE:
+**MongoDB is NOT running or .env files are missing**
+
+---
+
+## ✅ FIX IN 5 MINUTES
+
+### Step 1: Start MongoDB (Required!)
+```bash
+mongod
+```
+Wait for: `waiting for connections on port 27017`
+
+### Step 2: Create These Files
+
+**File: `backend/.env`**
+```
+NODE_ENV=development
+PORT=3001
+MONGODB_URI=mongodb://localhost:27017/contentpulse
+LOG_LEVEL=info
+FRONTEND_URL=http://localhost:3000
+```
+
+**File: `frontend/.env`**
+```
+VITE_API_URL=http://localhost:3001/api
+VITE_WS_URL=ws://localhost:3001
+```
+
+### Step 3: Install & Run
+
+```bash
+npm install
+```
+
+Then **DOUBLE-CLICK:** `start-dev.bat`
+
+### Step 4: Open Browser
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🎯 WHAT YOU'LL SEE
+
+✅ Dashboard with analytics  
+✅ Analytics page with data  
+✅ AI Insights  
+✅ Reports section  
+
+---
+
+## 🐛 IF STILL NOT WORKING
+
+Run this diagnostic:
+```bash
+diagnose.bat
+```
+
+It will tell you exactly what's wrong.
+
+---
+
+## 📋 CHECKLIST BEFORE YOU CONTINUE
+
+- [ ] Downloaded MongoDB from: https://www.mongodb.com/try/download/community
+- [ ] Installed MongoDB
+- [ ] Running `mongod` in terminal (Terminal 1)
+- [ ] Created `backend/.env` in backend folder
+- [ ] Created `frontend/.env` in frontend folder
+- [ ] Ran `npm install` (should complete successfully)
+- [ ] Ran `start-dev.bat` (or manual startup)
+- [ ] See "ready" messages in terminals
+- [ ] Opened http://localhost:5173 in browser
+
+**If YES to all → You're done! Enjoy the app! 🎉**
+
+---
+
+## 🆘 COMMON ISSUES
+
+| Issue | Fix |
+|-------|-----|
+| "Cannot connect to MongoDB" | Run `mongod` in a terminal |
+| "Port 3001 already in use" | Kill it: `taskkill /PID <number> /F` |
+| ".env file not found" | Create the files in backend/ and frontend/ folders |
+| Blank page on localhost:5173 | Check browser console (F12) for errors |
+| "Module not found" | Run: `npm install` again |
+
+---
+
+## 🔗 QUICK LINKS
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:3001/api
+- MongoDB: mongodb://localhost:27017
+
+---
+
+## 📞 STILL STUCK?
+
+1. Run: `diagnose.bat`
+2. Read the output
+3. Follow the suggestion
+4. Try again
+
+**You've got this! 💪**

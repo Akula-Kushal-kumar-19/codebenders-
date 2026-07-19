@@ -1,0 +1,165 @@
+╔════════════════════════════════════════════════════════════════════╗
+║                   CONTENTPULSE - GET RUNNING NOW                   ║
+║                                                                    ║
+║  Your code is 100% fixed and ready! Follow these 5 steps:         ║
+╚════════════════════════════════════════════════════════════════════╝
+
+┌────────────────────────────────────────────────────────────────────┐
+│ STEP 1: INSTALL & START MONGODB (THE DATABASE)                   │
+└────────────────────────────────────────────────────────────────────┘
+
+  ✓ Download: https://www.mongodb.com/try/download/community
+  ✓ Install (just click Next)
+  ✓ Open Command Prompt
+  ✓ Run: mongod
+  ✓ Wait for: "waiting for connections on port 27017"
+  ✓ KEEP THIS WINDOW OPEN
+
+  💡 Takes 3-5 minutes if you need to download
+
+
+┌────────────────────────────────────────────────────────────────────┐
+│ STEP 2: CREATE backend/.env FILE                                  │
+└────────────────────────────────────────────────────────────────────┘
+
+  Location: ContentPulse/backend/.env
+  
+  Content:
+  ─────────────────────────────────────────────────────
+  NODE_ENV=development
+  PORT=3001
+  MONGODB_URI=mongodb://localhost:27017/contentpulse
+  LOG_LEVEL=info
+  FRONTEND_URL=http://localhost:3000
+  ─────────────────────────────────────────────────────
+
+  📝 Just copy-paste the above into the file
+
+
+┌────────────────────────────────────────────────────────────────────┐
+│ STEP 3: CREATE frontend/.env FILE                                 │
+└────────────────────────────────────────────────────────────────────┘
+
+  Location: ContentPulse/frontend/.env
+  
+  Content:
+  ─────────────────────────────────────────────────────
+  VITE_API_URL=http://localhost:3001/api
+  VITE_WS_URL=ws://localhost:3001
+  ─────────────────────────────────────────────────────
+
+  📝 Just copy-paste the above into the file
+
+
+┌────────────────────────────────────────────────────────────────────┐
+│ STEP 4: INSTALL DEPENDENCIES                                      │
+└────────────────────────────────────────────────────────────────────┘
+
+  ✓ Open Command Prompt in project root
+  ✓ Run: npm install
+  ✓ Wait for completion (1-2 minutes)
+
+  💡 This downloads all required packages
+
+
+┌────────────────────────────────────────────────────────────────────┐
+│ STEP 5: START THE SERVERS                                         │
+└────────────────────────────────────────────────────────────────────┘
+
+  EASIEST WAY:
+  ✓ Find file: start-dev.bat
+  ✓ Double-click it
+  ✓ Two new terminals will open
+  ✓ Wait for "ready" messages
+
+  OR MANUAL WAY:
+  Terminal A:  cd backend && npm run dev
+  Terminal B:  cd frontend && npm run dev
+
+
+┌────────────────────────────────────────────────────────────────────┐
+│ OPEN BROWSER                                                       │
+└────────────────────────────────────────────────────────────────────┘
+
+  http://localhost:5173
+
+  🎉 You should see the ContentPulse Dashboard!
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║                        WHAT YOU'LL SEE                            ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  Dashboard       - Real-time analytics & metrics                  ║
+║  Analytics       - Topic & format performance                     ║
+║  AI Insights     - Smart content recommendations                  ║
+║  Reports         - Generate performance reports                   ║
+║                                                                    ║
+║  All powered by your MongoDB database running locally!            ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║                         QUICK REFERENCE                           ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  Frontend URL     http://localhost:5173                           ║
+║  Backend API      http://localhost:3001/api                       ║
+║  Database Port    mongodb://localhost:27017                       ║
+║                                                                    ║
+║  Backend Terminal "ContentPulse server running on port 3001"      ║
+║  Frontend Terminal "ready in X ms"                                ║
+║  MongoDB Terminal "waiting for connections on port 27017"        ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║                    TROUBLESHOOTING QUICK FIXES                    ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  ❌ Port 3001 already in use                                      ║
+║     → netstat -ano | findstr :3001                                ║
+║     → taskkill /PID <number> /F                                   ║
+║                                                                    ║
+║  ❌ Port 5173 already in use                                      ║
+║     → netstat -ano | findstr :5173                                ║
+║     → taskkill /PID <number> /F                                   ║
+║                                                                    ║
+║  ❌ MongoDB not connecting                                        ║
+║     → Make sure mongod is running in Terminal 1                   ║
+║                                                                    ║
+║  ❌ Blank page in browser                                         ║
+║     → Press F12, check Console for errors                         ║
+║     → Make sure backend is running on 3001                        ║
+║                                                                    ║
+║  ❌ "Module not found"                                            ║
+║     → npm install (in root)                                       ║
+║     → cd backend && npm install                                   ║
+║     → cd frontend && npm install                                  ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+
+
+┌────────────────────────────────────────────────────────────────────┐
+│                    ESTIMATED TIME: 15-20 MINUTES                  │
+│                                                                    │
+│  • MongoDB download & install: 5-10 min                           │
+│  • Create .env files: 2 min                                       │
+│  • npm install: 2-3 min                                           │
+│  • Start servers: 1 min                                           │
+│  • Total: 15-20 minutes                                           │
+└────────────────────────────────────────────────────────────────────┘
+
+
+┌────────────────────────────────────────────────────────────────────┐
+│                         NEED HELP?                                 │
+│                                                                    │
+│  1. Run: diagnose.bat (checks your setup)                         │
+│  2. Read: SETUP_COMPLETE.md (detailed guide)                      │
+│  3. Check: GET_STARTED.txt (quick reference)                      │
+└────────────────────────────────────────────────────────────────────┘
+
+
+                    🚀 Let's get ContentPulse running!

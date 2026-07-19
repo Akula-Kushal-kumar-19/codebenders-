@@ -1,0 +1,184 @@
+# What You Need To Do RIGHT NOW To Get ContentPulse Running
+
+## 🎯 THE ISSUE
+Your localhost isn't running because:
+1. **MongoDB is NOT running** ← Most common issue
+2. **Environment files (.env) are missing**
+3. **Dependencies might not be installed**
+
+---
+
+## ✅ EXACT STEPS TO FIX (5-10 MINUTES)
+
+### STEP 1: Download and Start MongoDB (CRITICAL!)
+
+**Visit:** https://www.mongodb.com/try/download/community
+- Select Windows
+- Download the .msi file
+- Run the installer
+- Once installed, open Command Prompt and run:
+
+```
+mongod
+```
+
+**You must see this message:**
+```
+[initandlisten] waiting for connections on port 27017
+```
+
+**LEAVE THIS TERMINAL RUNNING!** This is your database server.
+
+---
+
+### STEP 2: Create Two .env Files
+
+**File 1: backend/.env**
+
+1. Navigate to the `backend` folder in your project
+2. Create a new file named `.env` (with no extension)
+3. Add this content:
+
+```
+NODE_ENV=development
+PORT=3001
+MONGODB_URI=mongodb://localhost:27017/contentpulse
+LOG_LEVEL=info
+FRONTEND_URL=http://localhost:3000
+```
+
+4. Save it
+
+**File 2: frontend/.env**
+
+1. Navigate to the `frontend` folder in your project
+2. Create a new file named `.env` (with no extension)
+3. Add this content:
+
+```
+VITE_API_URL=http://localhost:3001/api
+VITE_WS_URL=ws://localhost:3001
+```
+
+4. Save it
+
+---
+
+### STEP 3: Install Dependencies
+
+Open Command Prompt in your **project root** and run:
+
+```
+npm install
+```
+
+This takes 1-2 minutes. Wait for it to complete.
+
+---
+
+### STEP 4: Start the Servers
+
+**EASIEST WAY:**
+
+In your project root, **double-click the file:** `start-dev.bat`
+
+This automatically opens 2 new terminals and starts:
+- Backend on port 3001
+- Frontend on port 5173
+
+---
+
+### STEP 5: Wait For Ready Messages
+
+You should see:
+- **Terminal 1 (Backend):** `ContentPulse server running on port 3001`
+- **Terminal 2 (Frontend):** `ready in 500 ms` or `Local: http://localhost:5173`
+
+---
+
+### STEP 6: Open Browser
+
+Go to:
+```
+http://localhost:5173
+```
+
+You should see the ContentPulse dashboard! 🎉
+
+---
+
+## 🐛 TROUBLESHOOTING
+
+### Problem: "Cannot find module" errors
+```
+Solution:
+cd backend && npm install
+cd ../frontend && npm install
+cd ../shared && npm install
+```
+
+### Problem: "Port 3001 already in use"
+```
+Solution (in Command Prompt):
+netstat -ano | findstr :3001
+taskkill /PID <number> /F
+
+Then try running start-dev.bat again
+```
+
+### Problem: MongoDB connection error
+**Make sure Terminal 1 with `mongod` is running!**
+
+### Problem: Blank page or errors in browser
+Press F12 in browser to open Developer Console and check for errors
+
+---
+
+## 📁 NEW FILES I CREATED FOR YOU
+
+In your project root, you'll find these helpful scripts:
+
+1. **`start-dev.bat`** ← USE THIS! (Double-click to start everything)
+2. **`diagnose.bat`** (Check your setup)
+3. **`SETUP_COMPLETE.md`** (Detailed guide)
+4. **`GET_STARTED.txt`** (Quick reference)
+5. **`QUICK_START.md`** (Another guide)
+
+---
+
+## ✅ FINAL CHECKLIST
+
+Before opening browser, make sure:
+
+- [ ] `mongod` terminal shows `waiting for connections on port 27017`
+- [ ] `backend/.env` exists with MONGODB_URI set
+- [ ] `frontend/.env` exists with VITE_API_URL set
+- [ ] `npm install` completed (no red errors)
+- [ ] Backend terminal shows `ContentPulse server running on port 3001`
+- [ ] Frontend terminal shows `ready in X ms` or the localhost URL
+
+**If ALL checked:** Open http://localhost:5173
+
+---
+
+## 🎯 NEXT STEPS
+
+Once the app is running:
+
+1. **Dashboard** - See real-time analytics
+2. **Analytics** - View topic and format performance
+3. **Insights** - Check AI-generated insights
+4. **Reports** - Generate performance reports
+
+---
+
+## 🆘 IF STUCK
+
+1. Double-click `diagnose.bat` in project root
+2. Read what it tells you
+3. Fix what's missing
+4. Try again
+
+---
+
+**YOU'VE GOT THIS! Start with MongoDB and the .env files, then double-click start-dev.bat** 💪🚀

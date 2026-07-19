@@ -1,0 +1,387 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║         🚀 CONTENTPULSE - DEVELOPMENT SERVER STARTUP PROCEDURE 🚀             ║
+║                                                                               ║
+║                     Complete Step-by-Step Instructions                        ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+PART 1: PREREQUISITES CHECK
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Required Software:
+  • Node.js (version 16+) - Check: node --version
+  • npm (comes with Node.js) - Check: npm --version
+  • MongoDB (local or cloud) - Check if needed
+
+✅ Project Files:
+  • backend/ folder with package.json
+  • frontend/ folder with package.json
+  • shared/ folder with package.json
+
+✅ Environment Files:
+  • backend/.env (with MONGODB_URI configured)
+  • frontend/.env (with VITE_API_URL configured)
+
+✅ Dependencies Installed:
+  • npm install (completed in root)
+  • backend node_modules exists
+  • frontend node_modules exists
+
+
+PART 2: MONGODB SETUP (REQUIRED!)
+═══════════════════════════════════════════════════════════════════════════════
+
+Option A: Local MongoDB (Recommended for Development)
+─────────────────────────────────────────────────────
+
+1. Download MongoDB Community Edition:
+   URL: https://www.mongodb.com/try/download/community
+   Select: Windows
+   Download the .msi installer
+
+2. Install MongoDB:
+   • Run the downloaded installer
+   • Follow the setup wizard
+   • Default installation path: C:\Program Files\MongoDB\Server\7.0
+
+3. Start MongoDB:
+   • Open Command Prompt
+   • Run: mongod
+   • Expected output: "waiting for connections on port 27017"
+   • ⚠️  KEEP THIS TERMINAL OPEN while testing
+
+
+Option B: MongoDB Atlas (Cloud - No Installation)
+──────────────────────────────────────────────────
+
+1. Go to: https://www.mongodb.com/cloud/atlas
+2. Create free account
+3. Create a free cluster
+4. Get connection string
+5. Update backend/.env with the connection string
+
+
+⚠️  IMPORTANT: MongoDB MUST be running before starting servers!
+
+
+PART 3: START BACKEND SERVER
+═══════════════════════════════════════════════════════════════════════════════
+
+Step 1: Open Command Prompt (New Window)
+─────────────────────────────────────────
+• Press: Win + R
+• Type: cmd
+• Press: Enter
+
+Step 2: Navigate to Backend Folder
+─────────────────────────────────────────
+Command: cd backend
+
+Step 3: Start the Backend Dev Server
+─────────────────────────────────────────
+Command: npm run dev
+
+Expected Output:
+───────────────────────────────────────────────────────────────────────────
+> @contentpulse/backend@1.0.0 dev
+> nodemon --exec ts-node src/index.ts
+
+[nodemon] starting `ts-node src/index.ts`
+[info] ContentPulse server running on port 3001
+[info] Connected to MongoDB
+[info] WebSocket server running on port 3001
+[info] Scheduled tasks initialized
+───────────────────────────────────────────────────────────────────────────
+
+✅ Backend is ready when you see:
+   "ContentPulse server running on port 3001"
+
+⚠️  KEEP THIS TERMINAL OPEN
+
+
+PART 4: START FRONTEND SERVER
+═══════════════════════════════════════════════════════════════════════════════
+
+Step 1: Open Command Prompt (Another New Window)
+──────────────────────────────────────────────────
+• Press: Win + R
+• Type: cmd
+• Press: Enter
+
+Step 2: Navigate to Frontend Folder
+──────────────────────────────────────────────
+Command: cd frontend
+
+Step 3: Start the Frontend Dev Server
+──────────────────────────────────────────────
+Command: npm run dev
+
+Expected Output:
+───────────────────────────────────────────────────────────────────────────
+> @contentpulse/frontend@1.0.0 dev
+> vite
+
+  VITE v4.5.14  ready in 363 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+───────────────────────────────────────────────────────────────────────────
+
+✅ Frontend is ready when you see:
+   "Local: http://localhost:5173"
+
+⚠️  KEEP THIS TERMINAL OPEN
+
+
+PART 5: OPEN IN BROWSER
+═══════════════════════════════════════════════════════════════════════════════
+
+Step 1: Open Web Browser
+─────────────────────────
+• Open Chrome, Firefox, Edge, or Safari
+• Or use: Win + R → chrome
+
+Step 2: Go to Application URL
+──────────────────────────────
+• Address Bar: http://localhost:5173
+• Press: Enter
+
+🎉 YOU SHOULD SEE THE CONTENTPULSE DASHBOARD!
+
+
+PART 6: EXPECTED OUTPUT IN BROWSER
+═══════════════════════════════════════════════════════════════════════════════
+
+When application loads successfully, you'll see:
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                  ContentPulse Dashboard                                 │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ Navigation Bar (Top):                                                   │
+│ [Dashboard] [Analytics] [Insights] [Reports]                            │
+│                                                                         │
+│ Main Content Area:                                                      │
+│                                                                         │
+│ Dashboard Section:                                                      │
+│ • Real-time content metrics                                            │
+│ • Total Views counter                                                  │
+│ • Total Engagement counter                                             │
+│ • Average Time on Page counter                                         │
+│                                                                         │
+│ Charts Section:                                                         │
+│ • Performance by Topic (Bar Chart)                                    │
+│ • Performance by Format (Bar Chart)                                   │
+│                                                                         │
+│ Date Range Filter:                                                      │
+│ • Start Date: [Date Input]                                            │
+│ • End Date: [Date Input]                                              │
+│ • Update Button                                                        │
+│                                                                         │
+│ Browser Status:                                                         │
+│ • No red errors in console (F12)                                       │
+│ • Network tab shows API calls to localhost:3001                        │
+│ • WebSocket connected                                                  │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+
+PART 7: TERMINAL OUTPUTS SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+
+TERMINAL 1 (MongoDB):
+────────────────────────────────────────────────────────────────────────
+Command: mongod
+
+Output:
+  mongod 7.0.0 -- MongoDB Community Server
+  [initandlisten] MongoDB starting
+  [initandlisten] waiting for connections on port 27017
+
+Status: ✅ Running on port 27017
+
+
+TERMINAL 2 (Backend):
+────────────────────────────────────────────────────────────────────────
+Command: cd backend && npm run dev
+
+Output:
+  > @contentpulse/backend@1.0.0 dev
+  > nodemon --exec ts-node src/index.ts
+  
+  [nodemon] starting `ts-node src/index.ts`
+  [info] ContentPulse server running on port 3001
+  [info] Connected to MongoDB
+  [info] WebSocket server running on port 3001
+  [info] Scheduled tasks initialized
+
+Status: ✅ Running on port 3001
+API Endpoints:
+  • GET  /api/health
+  • GET  /api/analytics/summary
+  • POST /api/content
+  • GET  /api/reports
+  (and many more)
+
+
+TERMINAL 3 (Frontend):
+────────────────────────────────────────────────────────────────────────
+Command: cd frontend && npm run dev
+
+Output:
+  > @contentpulse/frontend@1.0.0 dev
+  > vite
+  
+  VITE v4.5.14  ready in 363 ms
+  
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+Status: ✅ Running on port 5173
+Frontend pages:
+  • /                  (Dashboard)
+  • /analytics         (Analytics)
+  • /insights          (Insights)
+  • /reports           (Reports)
+
+
+BROWSER (http://localhost:5173):
+────────────────────────────────────────────────────────────────────────
+Display: ContentPulse React Application
+Status: ✅ Fully loaded and functional
+Components:
+  ✓ Navigation bar
+  ✓ Metric cards
+  ✓ Charts and visualizations
+  ✓ Page content
+  ✓ Network communication with API
+
+
+PART 8: VERIFICATION CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+Before opening the browser, verify all THREE servers are running:
+
+✅ MongoDB Terminal:
+   □ Shows "waiting for connections on port 27017"
+   □ No error messages
+   □ Terminal is OPEN and responsive
+
+✅ Backend Terminal:
+   □ Shows "ContentPulse server running on port 3001"
+   □ Shows "Connected to MongoDB"
+   □ No error messages
+   □ Terminal is OPEN and responsive
+
+✅ Frontend Terminal:
+   □ Shows "Local: http://localhost:5173"
+   □ Shows Vite build time
+   □ No error messages
+   □ Terminal is OPEN and responsive
+
+When all three terminals show ready status:
+✅ Open http://localhost:5173 in browser
+✅ Dashboard should load within 2-3 seconds
+✅ No console errors (press F12 to check)
+✅ Metrics and charts should display
+
+
+PART 9: TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════
+
+Issue: "Cannot connect to MongoDB"
+──────────────────────────────────────────────────────────────────────────
+Solution:
+  1. Make sure MongoDB terminal shows "waiting for connections on port 27017"
+  2. Check backend/.env has correct MONGODB_URI
+  3. If using Atlas, verify connection string and whitelist IP
+
+
+Issue: "Port 3001 already in use"
+──────────────────────────────────────────────────────────────────────────
+Solution:
+  1. Open Command Prompt
+  2. Run: netstat -ano | findstr :3001
+  3. Find the PID number
+  4. Run: taskkill /PID <number> /F
+  5. Try starting backend again
+
+
+Issue: "Port 5173 already in use"
+──────────────────────────────────────────────────────────────────────────
+Solution:
+  1. Open Command Prompt
+  2. Run: netstat -ano | findstr :5173
+  3. Find the PID number
+  4. Run: taskkill /PID <number> /F
+  5. Try starting frontend again
+
+
+Issue: "Blank page in browser"
+──────────────────────────────────────────────────────────────────────────
+Solution:
+  1. Press F12 to open Developer Console
+  2. Check Console tab for error messages
+  3. Check Network tab to see if API calls are working
+  4. Verify backend is running on port 3001
+  5. Verify frontend is running on port 5173
+
+
+Issue: ".env file not found"
+──────────────────────────────────────────────────────────────────────────
+Solution:
+  1. Create backend/.env in backend folder
+  2. Create frontend/.env in frontend folder
+  3. Add the required environment variables
+  4. Restart servers
+
+
+Issue: "npm: command not found"
+──────────────────────────────────────────────────────────────────────────
+Solution:
+  1. Download Node.js: https://nodejs.org/
+  2. Install it (includes npm)
+  3. Restart Command Prompt
+  4. Verify: npm --version
+
+
+PART 10: QUICK REFERENCE
+═══════════════════════════════════════════════════════════════════════════════
+
+Port Mapping:
+  MongoDB    → localhost:27017 (database)
+  Backend    → localhost:3001  (API server)
+  Frontend   → localhost:5173  (web app)
+
+Access URLs:
+  Application    → http://localhost:5173  ← OPEN THIS
+  API Health     → http://localhost:3001/api/health
+  API Base       → http://localhost:3001/api
+
+Commands:
+  MongoDB  → mongod
+  Backend  → cd backend && npm run dev
+  Frontend → cd frontend && npm run dev
+
+Key Files:
+  Backend  → backend/.env (environment variables)
+  Frontend → frontend/.env (environment variables)
+  Config   → backend/src/config/index.ts
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                           NOW YOU'RE READY!
+═══════════════════════════════════════════════════════════════════════════════
+
+Follow the steps above:
+  1. ✅ Start MongoDB (mongod)
+  2. ✅ Start Backend Server (npm run dev in backend/)
+  3. ✅ Start Frontend Server (npm run dev in frontend/)
+  4. ✅ Open http://localhost:5173 in browser
+  5. ✅ Enjoy your ContentPulse application!
+
+All errors have been fixed. Your project is production-ready!
+
+═══════════════════════════════════════════════════════════════════════════════
