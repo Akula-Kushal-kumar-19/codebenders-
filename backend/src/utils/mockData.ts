@@ -1,6 +1,7 @@
 // Mock data service - used throughout the application
 // All data is prefixed with "Sample" or "Demo" to identify as mock data
 
+
 export const mockContentData = [
   {
     id: 'content-1',
@@ -13,6 +14,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-01-15'),
     channels: ['blog', 'linkedin'],
     author: 'Demo User: John Doe',
+    description: 'Comprehensive guide to using React Hooks for state management and side effects',
     status: 'published',
   },
   {
@@ -26,6 +28,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-01-18'),
     channels: ['blog', 'twitter'],
     author: 'Demo User: Jane Smith',
+    description: 'Essential Node.js best practices for production applications',
     status: 'published',
   },
   {
@@ -39,6 +42,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-01-20'),
     channels: ['youtube', 'linkedin'],
     author: 'Demo User: Mike Johnson',
+    description: 'Learn TypeScript from scratch with practical examples and exercises',
     status: 'published',
   },
   {
@@ -52,6 +56,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-01-22'),
     channels: ['blog', 'twitter', 'linkedin'],
     author: 'Demo User: Sarah Davis',
+    description: 'Master techniques to optimize web application performance and user experience',
     status: 'published',
   },
   {
@@ -65,6 +70,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-01-25'),
     channels: ['blog', 'linkedin'],
     author: 'Demo User: Tom Wilson',
+    description: 'Deep dive comparison of GraphQL and REST API architectures',
     status: 'published',
   },
   {
@@ -78,6 +84,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-01-28'),
     channels: ['youtube', 'linkedin'],
     author: 'Demo User: Emily Brown',
+    description: 'Master asynchronous JavaScript with async/await patterns and examples',
     status: 'published',
   },
   {
@@ -91,6 +98,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-02-01'),
     channels: ['blog', 'twitter'],
     author: 'Demo User: Chris Martin',
+    description: 'Complete CSS Grid guide for building complex, responsive layouts',
     status: 'published',
   },
   {
@@ -104,6 +112,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-02-03'),
     channels: ['blog', 'linkedin'],
     author: 'Demo User: David Lee',
+    description: 'Learn Docker containerization for deploying applications at scale',
     status: 'published',
   },
   {
@@ -117,6 +126,7 @@ export const mockContentData = [
     publishedAt: new Date('2024-02-05'),
     channels: ['youtube', 'linkedin'],
     author: 'Demo User: Lisa Anderson',
+    description: 'Introduction to machine learning concepts and algorithms',
     status: 'published',
   },
   {
@@ -130,9 +140,67 @@ export const mockContentData = [
     publishedAt: new Date('2024-02-08'),
     channels: ['blog', 'twitter', 'linkedin'],
     author: 'Demo User: Robert Chen',
+    description: 'Explore cloud architecture best practices and design patterns',
+    status: 'published',
+  },
+  {
+    id: 'content-11',
+    title: 'Sample: Kubernetes in Production',
+    url: 'https://example.com/kubernetes-prod',
+    format: 'article',
+    topic: 'DevOps',
+    subtopics: ['Kubernetes', 'Orchestration'],
+    length: 6200,
+    publishedAt: new Date('2024-02-10'),
+    channels: ['blog', 'linkedin'],
+    author: 'Demo User: Nicole Taylor',
+    description: 'Running Kubernetes clusters in production environments',
+    status: 'published',
+  },
+  {
+    id: 'content-12',
+    title: 'Sample: Web Accessibility Best Practices',
+    url: 'https://example.com/accessibility',
+    format: 'article',
+    topic: 'Web Development',
+    subtopics: ['A11y', 'Frontend'],
+    length: 3900,
+    publishedAt: new Date('2024-02-12'),
+    channels: ['blog', 'twitter'],
+    author: 'Demo User: Alex Rivera',
+    description: 'Making web applications accessible to all users',
+    status: 'published',
+  },
+  {
+    id: 'content-13',
+    title: 'Sample: Python Data Science Toolkit',
+    url: 'https://example.com/python-datasci',
+    format: 'newsletter',
+    topic: 'Python',
+    subtopics: ['Data Science', 'Analytics'],
+    length: 2800,
+    publishedAt: new Date('2024-02-14'),
+    channels: ['newsletter'],
+    author: 'Demo User: Marcus Thompson',
+    description: 'Essential Python libraries for data science and analysis',
+    status: 'published',
+  },
+  {
+    id: 'content-14',
+    title: 'Sample: Next.js Performance Tips',
+    url: 'https://example.com/nextjs-perf',
+    format: 'social',
+    topic: 'React',
+    subtopics: ['Next.js', 'Performance'],
+    length: 1500,
+    publishedAt: new Date('2024-02-16'),
+    channels: ['twitter', 'linkedin'],
+    author: 'Demo User: Priya Patel',
+    description: 'Quick tips to improve Next.js application performance',
     status: 'published',
   },
 ];
+
 
 export const mockAnalyticsData = [
   // React content (content-1) - 5 records
