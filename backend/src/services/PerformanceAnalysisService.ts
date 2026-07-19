@@ -253,5 +253,3 @@ export class PerformanceAnalysisService {
 
 export default new PerformanceAnalysisService();
 
-
-export default new PerformanceAnalysisService();
