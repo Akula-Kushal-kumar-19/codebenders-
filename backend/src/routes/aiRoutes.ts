@@ -5,10 +5,10 @@ import asyncHandler from '../middleware/asyncHandler';
 const router = Router();
 
 // AI endpoints
-router.post('/predictions', asyncHandler((req, res) => AIController.getPredictions(req, res)));
-router.get('/insights', asyncHandler((req, res) => AIController.getInsights(req, res)));
-router.get('/gaps', asyncHandler((req, res) => AIController.getContentGaps(req, res)));
-router.get('/topics', asyncHandler((req, res) => AIController.getHighConvertingTopics(req, res)));
-router.get('/trends', asyncHandler((req, res) => AIController.getEmergingTrends(req, res)));
+router.post('/predictions', asyncHandler(AIController.getPredictions.bind(AIController)));
+router.get('/insights', asyncHandler(AIController.getInsights.bind(AIController)));
+router.get('/gaps', asyncHandler(AIController.getContentGaps.bind(AIController)));
+router.get('/topics', asyncHandler(AIController.getHighConvertingTopics.bind(AIController)));
+router.get('/trends', asyncHandler(AIController.getEmergingTrends.bind(AIController)));
 
 export default router;
