@@ -193,9 +193,6 @@ export class PerformanceAnalysisService {
       if (contents.length === 0 || analytics.length === 0) {
         return [];
       }
-
-      // Compute topic performance in real-time
-      return this.analyzeByTopic(contents, analytics).slice(0, limit);
     } catch (error) {
       logger.error('Error getting topic performance:', { error });
       // Last resort: use mock data
@@ -204,6 +201,11 @@ export class PerformanceAnalysisService {
         return this.analyzeByTopic(mockData.mockContentData, mockData.mockAnalyticsData).slice(0, limit);
       } catch (e) {
         logger.error('Mock data fallback failed:', { error: e });
+        throw error;
+      }
+    }
+  }
+
   /**
    * Get format performance ranking (computed in real-time)
    */
@@ -248,14 +250,8 @@ export class PerformanceAnalysisService {
     }
   }
 }
-        const mockData = require('../utils/mockData');
-        return this.analyzeByFormat(mockData.mockContentData, mockData.mockAnalyticsData).slice(0, limit);
-      } catch (e) {
-        logger.error('Mock data fallback failed:', { error: e });
-        throw error;
-      }
-    }
-  }
-}
+
+export default new PerformanceAnalysisService();
+
 
 export default new PerformanceAnalysisService();
