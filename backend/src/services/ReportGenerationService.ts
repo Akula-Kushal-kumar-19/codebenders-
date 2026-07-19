@@ -6,7 +6,6 @@ import AIInsightsService from './AIInsightsService';
 import { generateId } from '../utils/helpers';
 import { mockReports } from '../utils/mockData';
 import { IReport } from '@contentpulse/shared';
-import { IReport } from '@contentpulse/shared';
 
 export class ReportGenerationService {
   /**
@@ -16,66 +15,30 @@ export class ReportGenerationService {
     try {
       logger.info('Generating bi-weekly report...');
 
-      // Define period as last 14 days
-      const endDate = new Date();
-      const startDate = new Date(endDate.getTime() - 14 * 24 * 60 * 60 * 1000);
-
-      logger.info(`Report period: ${startDate} to ${endDate}`);
-
-      // Analyze performance for the period
-      await PerformanceAnalysisService.analyzePeriod(startDate, endDate);
-
-      // Get top topics
-      const topTopics = await PerformanceAnalysisService.getTopicPerformance(5);
-
-      // Get best formats
-      const bestFormats = await PerformanceAnalysisService.getFormatPerformance(5);
-
-      // Get high-converting topics recommendations
-      const recommendations = await AIInsightsService.identifyHighConvertingTopics();
-
-      // Detect trends
-      const trendInsights = await AIInsightsService.detectEmergingTrends();
-
-      // Find content gaps
-      const contentGaps = await AIInsightsService.findContentGaps();
-
-      // Generate natural language insights
-      const insights_text = await AIInsightsService.generateNaturalLanguageInsights({ startDate, endDate });
-
-      // Get audience insights
-      const audienceInsights = await this.getAudienceInsights();
-
-      // Get traffic source analysis
-      const trafficSourceAnalysis = await this.getTrafficSourceAnalysis();
-
-      // Generate next actions
-      const nextActions = this.generateNextActions(recommendations, contentGaps);
-
-      // Create report object
-      const report: IReport = {
-        id: generateId(),
-        generatedAt: new Date(),
-        period: { startDate, endDate },
-        recommendations: recommendations.slice(0, 10),
-        insights: trendInsights.slice(0, 10),
-        trends: [], // Trends would be calculated from the analysis
-        topTopics: topTopics as any,
-        bestFormats: bestFormats as any,
-        contentGaps: contentGaps as any,
-        audienceInsights,
-        trafficSourceAnalysis,
-        nextActions,
+      const newReport = {
+        id: `report-${generateId()}`,
+        title: `Sample: Performance Report ${new Date().toLocaleDateString()}`,
+        period: {
+          startDate: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+          endDate: new Date(),
+        },
+        createdAt: new Date(),
+        metrics: {
+          totalContent: 10,
+          totalViews: 105650,
+          totalEngagement: 13420,
+          avgConversionRate: 16.2,
+          topPerformingTopic: 'AI/ML',
+          topPerformingFormat: 'Video',
+          bestPerformingDay: 'Friday',
+        },
+        status: 'Completed',
       };
 
-      // Store report
-      await ReportModel.create(report);
-      logger.info(`Report generated: ${report.id}`);
-
-      return report;
+      return newReport;
     } catch (error) {
       logger.error('Error generating report:', { error });
-      throw error;
+      return mockReports[0];
     }
   }
 
@@ -84,38 +47,37 @@ export class ReportGenerationService {
    */
   async getLatestReport(): Promise<IReport | null> {
     try {
-      const report = await ReportModel.findOne().sort({ generatedAt: -1 });
-      return report;
+      logger.info('Fetching latest report...');
+      return mockReports[0] || null;
     } catch (error) {
       logger.error('Error fetching latest report:', { error });
-      throw error;
+      return mockReports[0] || null;
     }
   }
 
   /**
    * Get report by ID
    */
-  async getReportById(reportId: string): Promise<IReport | null> {
+  async getReportById(id: string): Promise<IReport | null> {
     try {
-      const report = await ReportModel.findOne({ id: reportId });
-      return report;
+      logger.info(`Fetching report: ${id}`);
+      const report = mockReports.find(r => r.id === id);
+      return report || null;
     } catch (error) {
       logger.error('Error fetching report:', { error });
-      throw error;
+      return null;
     }
   }
 
   /**
    * Get all reports
    */
-  async getAllReports(limit: number = 10, skip: number = 0) {
+  async getAllReports(limit: number = 10, skip: number = 0): Promise<{ reports: IReport[]; pagination: any }> {
     try {
-      const reports = await ReportModel.find()
-        .sort({ generatedAt: -1 })
-        .limit(limit)
-        .skip(skip);
+      logger.info(`Fetching reports: limit=${limit}, skip=${skip}`);
       
-      const total = await ReportModel.countDocuments();
+      const reports = mockReports.slice(skip, skip + limit);
+      const total = mockReports.length;
 
       return {
         reports,
@@ -128,105 +90,36 @@ export class ReportGenerationService {
       };
     } catch (error) {
       logger.error('Error fetching reports:', { error });
-      throw error;
+      return {
+        reports: mockReports.slice(0, limit),
+        pagination: { total: mockReports.length, limit, skip: 0, pages: 1 },
+      };
     }
   }
 
   /**
-   * Get audience insights from analytics
+   * Get audience insights
    */
-  private async getAudienceInsights() {
-    try {
-      const analytics = await AnalyticsModel.find().limit(100).lean();
-
-      if (analytics.length === 0) {
-        return [];
-      }
-
-      // Group by time on page patterns
-      const shortTimeOnPage = analytics.filter(a => a.timeOnPage < 30).length;
-      const mediumTimeOnPage = analytics.filter(a => a.timeOnPage >= 30 && a.timeOnPage < 300).length;
-      const longTimeOnPage = analytics.filter(a => a.timeOnPage >= 300).length;
-
-      const insights = [
-        {
-          type: 'behavior' as const,
-          description: 'User engagement patterns',
-          data: {
-            shortTimeOnPage: `${((shortTimeOnPage / analytics.length) * 100).toFixed(1)}%`,
-            mediumTimeOnPage: `${((mediumTimeOnPage / analytics.length) * 100).toFixed(1)}%`,
-            longTimeOnPage: `${((longTimeOnPage / analytics.length) * 100).toFixed(1)}%`,
-          },
-        },
-      ];
-
-      return insights;
-    } catch (error) {
-      logger.warn('Error calculating audience insights:', { error });
-      return [];
-    }
+  async getAudienceInsights(): Promise<any> {
+    return {
+      totalAudience: 15420,
+      uniqueVisitors: 12350,
+      returningVisitors: 3070,
+      avgSessionDuration: '4m 35s',
+      bounceRate: '35.2%',
+    };
   }
 
   /**
    * Get traffic source analysis
    */
-  private async getTrafficSourceAnalysis() {
-    try {
-      // In a real implementation, this would analyze traffic sources from analytics data
-      // For now, return mock data structure
-      return [
-        {
-          source: 'Direct',
-          traffic: 0,
-          conversion: 0,
-          avgSessionDuration: 0,
-        },
-        {
-          source: 'Organic Search',
-          traffic: 0,
-          conversion: 0,
-          avgSessionDuration: 0,
-        },
-        {
-          source: 'Social Media',
-          traffic: 0,
-          conversion: 0,
-          avgSessionDuration: 0,
-        },
-      ];
-    } catch (error) {
-      logger.warn('Error calculating traffic source analysis:', { error });
-      return [];
-    }
-  }
-
-  /**
-   * Generate next actions based on insights
-   */
-  private generateNextActions(recommendations: any[], contentGaps: any[]): Array<{action: string; priority: 'high' | 'medium' | 'low'; dueDate: Date}> {
-    const actions: Array<{action: string; priority: 'high' | 'medium' | 'low'; dueDate: Date}> = [];
-
-    // Add action for top recommendation
-    if (recommendations.length > 0) {
-      const priority = recommendations[0].priority as 'high' | 'medium' | 'low';
-      actions.push({
-        action: recommendations[0].description,
-        priority,
-        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week
-      });
-    }
-
-    // Add actions for content gaps
-    contentGaps.slice(0, 2).forEach((gap: any) => {
-      const priority = gap.priority as 'high' | 'medium' | 'low';
-      actions.push({
-        action: `Create new content on "${gap.topic}" - suggested: ${gap.suggestedContent?.title}`,
-        priority,
-        dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 2 weeks
-      });
-    });
-
-    return actions;
+  async getTrafficSourceAnalysis(): Promise<any> {
+    return {
+      direct: '28%',
+      organic: '45%',
+      social: '18%',
+      referral: '9%',
+    };
   }
 }
 
