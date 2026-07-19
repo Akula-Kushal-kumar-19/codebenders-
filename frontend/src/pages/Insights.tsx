@@ -7,9 +7,9 @@ import { Recommendation, ContentGap } from '@contentpulse/shared';
 export const Insights: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'topics' | 'trends' | 'gaps'>('topics');
 
-  const { data: topicsData, loading: topicsLoading } = useFetch(() => api.getHighConvertingTopics(5));
-  const { data: trendsData, loading: trendsLoading } = useFetch(() => api.getEmergingTrends());
-  const { data: gapsData, loading: gapsLoading } = useFetch(() => api.getContentGaps());
+  const { data: topicsData, loading: topicsLoading, error: topicsError } = useFetch(() => api.getHighConvertingTopics(5));
+  const { data: trendsData, loading: trendsLoading, error: trendsError } = useFetch(() => api.getEmergingTrends());
+  const { data: gapsData, loading: gapsLoading, error: gapsError } = useFetch(() => api.getContentGaps());
 
   return (
     <div>
@@ -57,6 +57,13 @@ export const Insights: React.FC = () => {
 
       {activeTab === 'topics' && (
         <div className="space-y-4">
+          {topicsError && (
+            <Alert
+              type="error"
+              title="Error loading topics"
+              message={topicsError.message}
+            />
+          )}
           {topicsLoading ? (
             <LoadingSpinner />
           ) : (
@@ -65,15 +72,29 @@ export const Insights: React.FC = () => {
                 key={idx}
                 type={rec.priority === 'high' ? 'success' : 'info'}
                 title={rec.type.charAt(0).toUpperCase() + rec.type.slice(1)}
-                message={`${rec.description} (Confidence: ${(rec.confidenceScore * 100).toFixed(0)}%)`}
+                message={`${rec.description} (Confidence: ${((rec.confidenceScore || 0) * 100).toFixed(0)}%)`}
               />
             ))
+          )}
+          {!topicsLoading && (!topicsData?.data || topicsData.data.length === 0) && !topicsError && (
+            <Alert
+              type="info"
+              title="No Data"
+              message="No topic recommendations available yet"
+            />
           )}
         </div>
       )}
 
       {activeTab === 'trends' && (
         <div className="space-y-4">
+          {trendsError && (
+            <Alert
+              type="error"
+              title="Error loading trends"
+              message={trendsError.message}
+            />
+          )}
           {trendsLoading ? (
             <LoadingSpinner />
           ) : (
@@ -81,16 +102,30 @@ export const Insights: React.FC = () => {
               <Alert
                 key={idx}
                 type="info"
-                title={insight.title}
-                message={insight.description}
+                title={insight.title || 'Trend'}
+                message={insight.description || 'No description'}
               />
             ))
+          )}
+          {!trendsLoading && (!trendsData?.data || trendsData.data.length === 0) && !trendsError && (
+            <Alert
+              type="info"
+              title="No Data"
+              message="No trend data available yet"
+            />
           )}
         </div>
       )}
 
       {activeTab === 'gaps' && (
         <div className="space-y-4">
+          {gapsError && (
+            <Alert
+              type="error"
+              title="Error loading gaps"
+              message={gapsError.message}
+            />
+          )}
           {gapsLoading ? (
             <LoadingSpinner />
           ) : (
@@ -99,9 +134,16 @@ export const Insights: React.FC = () => {
                 key={idx}
                 type={gap.priority === 'high' ? 'warning' : 'info'}
                 title={`Content Gap: ${gap.topic}`}
-                message={`${gap.reason} (Search Volume: ${gap.searchVolume?.toLocaleString()})`}
+                message={`${gap.reason} (Search Volume: ${gap.searchVolume?.toLocaleString?.()})`}
               />
             ))
+          )}
+          {!gapsLoading && (!gapsData?.data || gapsData.data.length === 0) && !gapsError && (
+            <Alert
+              type="info"
+              title="No Data"
+              message="No content gaps identified"
+            />
           )}
         </div>
       )}

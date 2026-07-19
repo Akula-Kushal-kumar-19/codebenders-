@@ -173,11 +173,31 @@ class App {
     await this.connect();
     await this.seedDatabase();
 
-    this.server.listen(config.PORT, () => {
-      logger.info(`ContentPulse server running on port ${config.PORT}`);
-      logger.info(`Environment: ${config.NODE_ENV}`);
-      logger.info(`WebSocket server running on port ${config.PORT}`);
-    });
+    const tryPort = (port: number): Promise<void> => {
+      return new Promise<void>((resolve, reject) => {
+        this.server.once('error', (err: any) => {
+          if (err.code === 'EADDRINUSE') {
+            logger.warn(`Port ${port} is in use, trying port ${port + 1}`);
+            // Create a new server instance
+            this.server = http.createServer(this.app);
+            this.wss = new WebSocket.Server({ server: this.server });
+            tryPort(port + 1).then(resolve).catch(reject);
+          } else {
+            logger.error('Server error:', { error: err });
+            reject(err);
+          }
+        });
+
+        this.server.listen(port, () => {
+          logger.info(`ContentPulse server running on port ${port}`);
+          logger.info(`Environment: ${config.NODE_ENV}`);
+          logger.info(`WebSocket server running on port ${port}`);
+          resolve();
+        });
+      });
+    };
+
+    await tryPort(Number(config.PORT));
 
     // Handle graceful shutdown
     process.on('SIGINT', async () => {

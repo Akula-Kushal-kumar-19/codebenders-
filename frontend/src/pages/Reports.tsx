@@ -9,17 +9,22 @@ import { IReport } from '@contentpulse/shared';
 export const Reports: React.FC = () => {
   const [selectedReport, setSelectedReport] = useState<IReport | null>(null);
   const [generating, setGenerating] = useState(false);
+  const [genError, setGenError] = useState<string | null>(null);
 
-  const { data: reportsData, loading: reportsLoading, refetch } = useFetch(() => api.listReports());
+  const { data: reportsData, loading: reportsLoading, refetch, error: loadError } = useFetch(() => api.listReports());
 
   const handleGenerateReport = async () => {
     setGenerating(true);
+    setGenError(null);
     try {
       await api.generateReport();
       alert('Report generation started');
-      refetch();
+      refetch().catch(err => {
+        console.error('Error refetching reports:', err);
+      });
     } catch (error) {
-      alert('Failed to generate report');
+      const message = error instanceof Error ? error.message : 'Failed to generate report';
+      setGenError(message);
     } finally {
       setGenerating(false);
     }
@@ -69,6 +74,14 @@ export const Reports: React.FC = () => {
           </button>
         }
       />
+
+      {genError && (
+        <Alert
+          type="error"
+          title="Generation Error"
+          message={genError}
+        />
+      )}
 
       {reportsLoading ? (
         <LoadingSpinner fullScreen />
@@ -127,7 +140,7 @@ export const Reports: React.FC = () => {
                     <div key={idx} className="py-2 border-b last:border-b-0">
                       <div className="flex justify-between">
                         <span className="font-medium">{topic.topic}</span>
-                        <span className="text-gray-600">{topic.avgViews?.toLocaleString()} avg views</span>
+                        <span className="text-gray-600">{topic.avgViews?.toLocaleString?.()} avg views</span>
                       </div>
                     </div>
                   ))}
@@ -149,6 +162,12 @@ export const Reports: React.FC = () => {
             )}
           </div>
         </div>
+      ) : loadError ? (
+        <Alert
+          type="error"
+          title="Error loading reports"
+          message={loadError.message}
+        />
       ) : (
         <div>
           <Table

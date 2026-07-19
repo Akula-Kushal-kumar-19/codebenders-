@@ -1,10 +1,12 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosError } from 'axios';
 import { IContent, IAnalytics } from '@contentpulse/shared';
 
 const API_URL = ((import.meta as any).env.VITE_API_URL as string | undefined) || 'http://localhost:3001/api';
 
-
-
+interface APIError extends Error {
+  status?: number;
+  response?: any;
+}
 
 class APIClient {
   private client: AxiosInstance;
@@ -17,6 +19,19 @@ class APIClient {
         'Content-Type': 'application/json',
       },
     });
+
+    // Add error interceptor
+    this.client.interceptors.response.use(
+      (response) => response,
+      (error: AxiosError) => {
+        const apiError: APIError = new Error(
+          error.response?.data?.error || error.message || 'An error occurred'
+        );
+        apiError.status = error.response?.status;
+        apiError.response = error.response?.data;
+        return Promise.reject(apiError);
+      }
+    );
   }
 
   // Content endpoints

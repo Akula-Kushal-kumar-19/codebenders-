@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Dashboard, Analytics, Insights, Reports } from './pages';
 
-import { Navigation } from './components';
+import { Navigation, ErrorBoundary } from './components';
 import './App.css';
 
 function App() {
@@ -23,12 +23,14 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
-      <main className="max-w-7xl mx-auto py-6 px-4">
-        {renderPage()}
-      </main>
-    </div>
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gray-100">
+        <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
+        <main className="max-w-7xl mx-auto py-6 px-4">
+          {renderPage()}
+        </main>
+      </div>
+    </ErrorBoundary>
   );
 }
 

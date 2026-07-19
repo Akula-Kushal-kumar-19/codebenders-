@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import { PageHeader, Table, LoadingSpinner } from '../components';
+import { PageHeader, Table, LoadingSpinner, Alert } from '../components';
 import { useFetch } from '../hooks';
 import api from '../services/api';
 
 export const Analytics: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'topics' | 'formats'>('topics');
+  const [syncError, setSyncError] = useState<string | null>(null);
 
-  const { data: topicData, loading: topicLoading } = useFetch(() => api.getTopicPerformance(20));
-  const { data: formatData, loading: formatLoading } = useFetch(() => api.getFormatPerformance(20));
+  const { data: topicData, loading: topicLoading, error: topicError } = useFetch(() => api.getTopicPerformance(20));
+  const { data: formatData, loading: formatLoading, error: formatError } = useFetch(() => api.getFormatPerformance(20));
 
   const handleSync = async () => {
+    setSyncError(null);
     try {
       await api.syncChannels();
       alert('Analytics sync initiated');
     } catch (error) {
-      alert('Failed to sync analytics');
+      const message = error instanceof Error ? error.message : 'Failed to sync analytics';
+      setSyncError(message);
     }
   };
 
@@ -23,17 +26,17 @@ export const Analytics: React.FC = () => {
     {
       key: 'avgViews',
       header: 'Avg Views',
-      render: (value: number) => value.toLocaleString(),
+      render: (value: number) => value?.toLocaleString?.() || 0,
     },
     {
       key: 'avgEngagement',
       header: 'Avg Engagement',
-      render: (value: number) => value.toLocaleString(),
+      render: (value: number) => value?.toLocaleString?.() || 0,
     },
     {
       key: 'conversionRate',
       header: 'Conversion Rate',
-      render: (value: number) => `${(value * 100).toFixed(2)}%`,
+      render: (value: number) => `${((value || 0) * 100).toFixed(2)}%`,
     },
   ];
 
@@ -46,12 +49,12 @@ export const Analytics: React.FC = () => {
     {
       key: 'avgViews',
       header: 'Avg Views',
-      render: (value: number) => value.toLocaleString(),
+      render: (value: number) => value?.toLocaleString?.() || 0,
     },
     {
       key: 'conversionRate',
       header: 'Conversion Rate',
-      render: (value: number) => `${(value * 100).toFixed(2)}%`,
+      render: (value: number) => `${((value || 0) * 100).toFixed(2)}%`,
     },
   ];
 
@@ -69,6 +72,14 @@ export const Analytics: React.FC = () => {
           </button>
         }
       />
+
+      {syncError && (
+        <Alert
+          type="error"
+          title="Sync Error"
+          message={syncError}
+        />
+      )}
 
       <div className="mb-6">
         <div className="border-b border-gray-200">
@@ -99,6 +110,13 @@ export const Analytics: React.FC = () => {
 
       {activeTab === 'topics' && (
         <div>
+          {topicError && (
+            <Alert
+              type="error"
+              title="Error loading topics"
+              message={topicError.message}
+            />
+          )}
           {topicLoading ? (
             <LoadingSpinner />
           ) : (
@@ -112,6 +130,13 @@ export const Analytics: React.FC = () => {
 
       {activeTab === 'formats' && (
         <div>
+          {formatError && (
+            <Alert
+              type="error"
+              title="Error loading formats"
+              message={formatError.message}
+            />
+          )}
           {formatLoading ? (
             <LoadingSpinner />
           ) : (

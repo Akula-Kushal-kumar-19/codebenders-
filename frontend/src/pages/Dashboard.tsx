@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MetricCard, BarChartComponent, PageHeader, LoadingSpinner } from '../components';
+import { MetricCard, BarChartComponent, PageHeader, LoadingSpinner, Alert } from '../components';
 import { useFetch } from '../hooks';
 import api from '../services/api';
 
@@ -9,13 +9,13 @@ export const Dashboard: React.FC = () => {
     end: new Date(),
   });
 
-  const { data: summary, loading, refetch } = useFetch(
+  const { data: summary, loading, error: summaryError, refetch } = useFetch(
     () => api.getAnalyticsSummary(dateRange.start, dateRange.end),
     { skipOnMount: false }
   );
 
-  const { data: topTopics } = useFetch(() => api.getTopicPerformance(5));
-  const { data: bestFormats } = useFetch(() => api.getFormatPerformance(5));
+  const { data: topTopics, error: topicsError } = useFetch(() => api.getTopicPerformance(5));
+  const { data: bestFormats, error: formatsError } = useFetch(() => api.getFormatPerformance(5));
 
   if (loading) return <LoadingSpinner fullScreen />;
 
@@ -25,6 +25,14 @@ export const Dashboard: React.FC = () => {
         title="Dashboard"
         subtitle="Real-time content performance overview"
       />
+
+      {summaryError && (
+        <Alert
+          type="error"
+          title="Error loading analytics"
+          message={summaryError.message}
+        />
+      )}
 
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
@@ -62,11 +70,11 @@ export const Dashboard: React.FC = () => {
         />
         <MetricCard
           title="Total Views"
-          value={summary?.data?.totalViews?.toLocaleString() || 0}
+          value={summary?.data?.totalViews?.toLocaleString?.() || 0}
         />
         <MetricCard
           title="Total Engagement"
-          value={summary?.data?.totalEngagement?.toLocaleString() || 0}
+          value={summary?.data?.totalEngagement?.toLocaleString?.() || 0}
         />
         <MetricCard
           title="Avg Time on Page"
@@ -76,18 +84,29 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <BarChartComponent
-          title="Performance by Topic"
-          data={topTopics?.data || []}
-          dataKey="avgViews"
-          xAxisKey="topic"
-        />
-        <BarChartComponent
-          title="Performance by Format"
-          data={bestFormats?.data || []}
-          dataKey="avgViews"
-          xAxisKey="format"
-        />
+        {topicsError && (
+          <Alert type="error" title="Error" message={topicsError.message} />
+        )}
+        {!topicsError && (
+          <BarChartComponent
+            title="Performance by Topic"
+            data={topTopics?.data || []}
+            dataKey="avgViews"
+            xAxisKey="topic"
+          />
+        )}
+        
+        {formatsError && (
+          <Alert type="error" title="Error" message={formatsError.message} />
+        )}
+        {!formatsError && (
+          <BarChartComponent
+            title="Performance by Format"
+            data={bestFormats?.data || []}
+            dataKey="avgViews"
+            xAxisKey="format"
+          />
+        )}
       </div>
     </div>
   );
