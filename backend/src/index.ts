@@ -128,18 +128,50 @@ class App {
     });
   }
 
+
+
   async connect() {
     try {
       await mongoose.connect(config.MONGODB_URI);
-      logger.info('Connected to MongoDB');
+      logger.info('✅ Connected to MongoDB');
     } catch (error) {
-      logger.error('MongoDB connection error:', { error });
-      process.exit(1);
+      logger.warn('⚠️  MongoDB connection failed - will use mock data');
+      logger.error('Connection error:', { error });
+      // Don't exit - continue with mock data
     }
   }
 
+  private async seedDatabase() {
+    try {
+      const { ContentModel, AnalyticsModel } = require('./models');
+      const { generateId } = require('./utils/helpers');
+
+      // Try to count documents - will fail if MongoDB isn't connected
+      let contentCount = 0;
+      try {
+        contentCount = await ContentModel.countDocuments();
+      } catch (e) {
+        logger.warn('⚠️ Cannot access database - skipping seed');
+        return;
+      }
+
+      if (contentCount > 0) {
+        logger.info('✅ Database already seeded.');
+        return;
+      }
+
+      logger.info('Seeding database...');
+      // Seed implementation here would go - for now just skip if DB not available
+    } catch (error) {
+      logger.error('Error seeding database:', { error });
+    }
+  }
+
+
+
   async start() {
     await this.connect();
+    await this.seedDatabase();
 
     this.server.listen(config.PORT, () => {
       logger.info(`ContentPulse server running on port ${config.PORT}`);

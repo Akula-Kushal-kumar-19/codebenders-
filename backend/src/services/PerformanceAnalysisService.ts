@@ -166,19 +166,20 @@ export class PerformanceAnalysisService {
   }
 
   /**
-   * Get topic performance ranking
+   * Get topic performance ranking (computed in real-time)
    */
   async getTopicPerformance(limit: number = 10) {
     try {
-      // Get most recent analysis period
-      const latestAnalysis = await AnalysisPeriodModel.findOne()
-        .sort({ endDate: -1 });
+      // Get all contents and analytics
+      const contents = await ContentModel.find();
+      const analytics = await AnalyticsModel.find();
 
-      if (!latestAnalysis) {
+      if (contents.length === 0 || analytics.length === 0) {
         return [];
       }
 
-      return latestAnalysis.performanceByTopic.slice(0, limit);
+      // Compute topic performance in real-time
+      return this.analyzeByTopic(contents, analytics).slice(0, limit);
     } catch (error) {
       logger.error('Error getting topic performance:', { error });
       throw error;
@@ -186,18 +187,20 @@ export class PerformanceAnalysisService {
   }
 
   /**
-   * Get format performance ranking
+   * Get format performance ranking (computed in real-time)
    */
   async getFormatPerformance(limit: number = 10) {
     try {
-      const latestAnalysis = await AnalysisPeriodModel.findOne()
-        .sort({ endDate: -1 });
+      // Get all contents and analytics
+      const contents = await ContentModel.find();
+      const analytics = await AnalyticsModel.find();
 
-      if (!latestAnalysis) {
+      if (contents.length === 0 || analytics.length === 0) {
         return [];
       }
 
-      return latestAnalysis.performanceByFormat.slice(0, limit);
+      // Compute format performance in real-time
+      return this.analyzeByFormat(contents, analytics).slice(0, limit);
     } catch (error) {
       logger.error('Error getting format performance:', { error });
       throw error;
